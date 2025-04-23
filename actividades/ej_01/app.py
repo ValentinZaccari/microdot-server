@@ -1,3 +1,5 @@
+
+
 import socket
 from boot import connect_to
 from machine import Pin, I2C
@@ -30,11 +32,11 @@ print("Servidor HTTP en:", addr)
 
 def serve_client(client):
     req = client.recv(1024).decode()
-    # Extraer ruta solicitada
+    
     path = req.split(" ")[1]
     if path == "/":
         path = "/index.html"
-    # Definir Content-Type
+    
     if   path.endswith(".css"):   ctype = "text/css"
     elif path.endswith(".js"):    ctype = "application/javascript"
     else:                         ctype = "text/html"
@@ -44,16 +46,17 @@ def serve_client(client):
         client.send("HTTP/1.0 200 OK\r\nContent-Type: {}\r\n\r\n".format(ctype))
         client.send(data)
     except Exception as e:
-        # Recurso no encontrado
+        
         client.send("HTTP/1.0 404 NOT FOUND\r\n\r\n")
     client.close()
 
-# ------- 4) Bucle principal -------
+
 while True:
     try:
         client, _ = s.accept()
         serve_client(client)
     except Exception as e:
-        # En caso de error, lo registramos y seguimos
+        
         print("Error al aceptar cliente:", e)
         sleep(1)
+
