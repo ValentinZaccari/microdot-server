@@ -19,6 +19,7 @@ header h1 {
 
 main {
     min-height: 70vh;
+    text-align: center;
 }
 
 footer {
