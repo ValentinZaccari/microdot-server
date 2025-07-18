@@ -1,24 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad #</title>
+    <title>FANIOT - Control Panel</title>
     <link rel="stylesheet" href="styles/base.css">
 </head>
+
 <body>
     <header>
-        <h1>Actividad #</h1>
+        <div class="overlay"></div>
+        <h1>FANIOT ESP32</h1>
+        <nav>
+            <ul>
+                <li><a href="#LEDS" aria-label="Ir a LEDS">LEDS Y TIRAS</a></li>
+                <li><a href="#TEMPERATURA" aria-label="Ir a Temperatura">TEMPERATURA</a></li>
+            </ul>
+        </nav>
     </header>
+
     <main>
+        <section id="LEDS" class="leds-control-section">
+            <h2>Control de LEDs y Tiras</h2>
+
+            <div class="individual-leds-control">
+                <h3>LEDs</h3>
+                <div class="botones-leds">
+                    <button class="led-button" data-led-id="1">LED1</button>
+                    <button class="led-button" data-led-id="2">LED2</button>
+                    <button class="led-button" data-led-id="3">LED3</button>
+                </div>
+            </div>
+
+            <!-- Control Global RGB (fuera de las tiras individuales) -->
+            <div class="rgb-global-control">
+                <h3>Control Global RGB</h3>
+                <div class="slider-group">
+                    <label for="redRange">Rojo: <span class="slider-value" id="redValue">0</span></label>
+                    <input type="range" id="redRange" min="0" max="255" value="0">
+                </div>
+
+                <div class="slider-group">
+                    <label for="greenRange">Verde: <span class="slider-value" id="greenValue">0</span></label>
+                    <input type="range" id="greenRange" min="0" max="255" value="0">
+                </div>
+
+                <div class="slider-group">
+                    <label for="blueRange">Azul: <span class="slider-value" id="blueValue">0</span></label>
+                    <input type="range" id="blueRange" min="0" max="255" value="0">
+                </div>
+                <div class="color-preview" id="rgb-global-preview"></div>
+                <button id="apply-global-rgb" class="apply-tira-button">Aplicar color global</button>
+            </div>
+        </section>
+
+        <section id="TEMPERATURA" class="temperatura-control-section">
+            <h2>Control de Temperatura</h2>
+            <div class="setpoint-group">
+                <label for="setpointRange">Setpoint: <span id="setpointValue">20</span> °C</label>
+                <input type="range" id="setpointRange" min="0" max="30" value="20">
+            </div>
+            <div class="sensor-group">
+                <label>Temperatura actual: <span id="sensorTemp">--</span> °C</label>
+            </div>
+            <div class="buzzer-group">
+                <label>Estado del buzzer: <span id="buzzerStatus">--</span></label>
+            </div>
+        </section>
     </main>
+
     <footer>
         <p>Representación Frontal y Visual de Datos</p>
         <p>Computadoras de Aeronaves</p>
-        <p>Alumno XX</p>
+        <p>Alumno Lesme Franco, Poggi Lorenzo y Albornoz Thiago</p>
         <p>Prof. Carlassara Fabrizio</p>
         <p id="fecha"></p>
     </footer>
+
     <script src="scripts/base.js"></script>
+    <script src="scripts/script.js"></script>
+
 </body>
+
 </html>
