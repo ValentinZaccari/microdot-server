@@ -1,36 +1,447 @@
+/*--------------------------------------------------------------
+# Body Section
+--------------------------------------------------------------*/
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f8ff;
-    color: #000080;
+    background-color: lightsalmon;
+    color: #000080; /* Navy */
 }
 
+/*--------------------------------------------------------------
+# Header Section
+--------------------------------------------------------------*/
 header {
-    background-color: #176fc7;
-    padding: 20px 0;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx7N5ygZKNlw850zWoVnRzfgW-wt7UXWWqtA&s');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 60px 20px;
     text-align: center;
+    color: white;
+    position: relative;
 }
 
 header h1 {
     margin: 0;
-    color: white;
+    color: lightsalmon;
+    font-size: 2.5em;
+    letter-spacing: 2px;
 }
 
-main {
-    min-height: 70vh;
-}
-
-footer {
-    background-color: #176fc7;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* oscurece */
+    z-index: 1;
 }
 
-footer p {
-    margin: 5px 0;
+header h1,
+nav {
+    position: relative;
+    z-index: 2; /* encima de la overlay */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+nav li {
+    padding: 0; /* El padding se lo daremos al 'a' para mejor área de click */
+    margin: 0 5px; /* Espacio entre elementos del menú */
+}
+
+nav li a { /* Estilos para los enlaces del nav */
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none; /* Quitar subrayado de enlaces */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+nav li a:hover {
+    background-color: #333;
+}
+
+
+/*--------------------------------------------------------------
+# LEDS & Tiras Section (Anteriormente #LEDS Section)
+--------------------------------------------------------------*/
+/* Estilos para la sección de control general de LEDs y Tiras */
+.leds-control-section {
+    padding: 30px 20px; /* Reducido un poco el padding vertical */
+    text-align: center;
+    background-color: #f8f0e3; /* Un color suave para la sección */
+    margin: 30px auto; /* Margen superior/inferior y centrado horizontal */
+    max-width: 900px; /* Ancho máximo similar a otras secciones */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leds-control-section > h2 { /* Título principal de la sección */
+    font-size: 2em; /* Un poco más grande */
+    color: #003366; /* Similar a otros títulos de sección */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Sub-secciones para LEDs individuales y Tiras */
+.individual-leds-control,
+.tiras-leds-control {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo más opaco para mejor legibilidad */
+    padding: 25px;
+    margin-top: 20px; /* Espacio entre el título general y la primera sub-sección */
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alineación a la izquierda para los contenidos internos */
+}
+
+.individual-leds-control h3,
+.tiras-leds-control h3 {
+    font-size: 1.6em;
+    color: #000080; /* Navy */
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0c08d; /* Línea divisoria más prominente */
+    text-align: center; /* Centrar los h3 de las subsecciones */
+}
+
+/* Estilos para los botones de LEDs individuales */
+.botones-leds { /* Contenedor de los botones de LED individuales */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 15px; /* Reducido el gap */
+    flex-wrap: wrap;
+    margin-bottom: 10px; /* Espacio debajo de los botones */
+}
+
+.botones-leds .led-button { /* Estilo para cada botón de LED individual */
+    padding: 10px 22px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #000080; /* Color principal */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    min-width: 110px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.botones-leds .led-button:hover {
+    background-color: #003366; /* Más oscuro al pasar el cursor */
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.botones-leds .led-button.active { /* Clase para indicar que el LED está ON */
+    background-color: #28a745; /* Verde */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.botones-leds .led-button.active:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+}
+
+
+/* Estilos para el control de cada Tira NeoPixel */
+.tira-control-item {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    border: 1px solid #e8e8e8;
+}
+
+.tira-control-item:last-child {
+    margin-bottom: 10px; /* Menos margen para el último item */
+}
+
+.tira-control-item h4 {
+    font-size: 1.3em;
+    color: #003366;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.slider-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.slider-group label {
+    min-width: 80px; /* Ajustado para "R: 255" */
+    font-size: 1em; /* Un poco más grande */
+    color: #2c3e50; /* Color de texto más oscuro */
+    font-weight: 500;
+}
+
+.slider-group .slider-value {
+    font-weight: bold;
+    color: #000080; /* Navy */
+    margin-left: 5px; /* Pequeño espacio */
+}
+
+.slider-group input[type="range"] {
+    flex-grow: 1;
+    margin-left: 15px;
+    cursor: pointer;
+    /* Estilos base para el track del slider */
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+}
+
+/* Estilos para el thumb (la bolita) del slider */
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #000080; /* Color del thumb */
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.slider-group input[type="range"]::-moz-range-thumb {
+  width: 18px; /* Ligeramente más pequeño para FF */
+  height: 18px;
+  border-radius: 50%;
+  background: #000080;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+/* Colores específicos para los thumbs de los sliders RGB */
+input[type="range"].r-slider::-webkit-slider-thumb { background: #e74c3c; } /* Rojo */
+input[type="range"].r-slider::-moz-range-thumb { background: #e74c3c; }
+
+input[type="range"].g-slider::-webkit-slider-thumb { background: #2ecc71; } /* Verde */
+input[type="range"].g-slider::-moz-range-thumb { background: #2ecc71; }
+
+input[type="range"].b-slider::-webkit-slider-thumb { background: #3498db; } /* Azul */
+input[type="range"].b-slider::-moz-range-thumb { background: #3498db; }
+
+.color-preview {
+    width: 100%;
+    height: 30px; /* Más alto */
+    border: 1px solid #bdc3c7; /* Gris más claro */
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgb(0,0,0); /* Color inicial */
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.apply-tira-button {
+    padding: 10px 18px; /* Ajustado */
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #5cb85c; /* Verde */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.apply-tira-button:hover {
+    background-color: #4a9d4a; /* Verde más oscuro */
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+
+/* Ajuste para que el anclaje no quede oculto por el header */
+html {
+  scroll-padding-top: 80px; /* Ajusta este valor a la altura de tu header si es fijo */
+  scroll-behavior: smooth; /* Desplazamiento suave */
+}
+
+/*--------------------------------------------------------------
+# Control Global RGB Section
+--------------------------------------------------------------*/
+.rgb-global-control {
+    background-color: rgba(255, 255, 255, 0.92);
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rgb-global-control h3 {
+    font-size: 1.5em;
+    color: #000080;
+    margin-top: 0;
+    margin-bottom: 22px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e0c08d;
+    text-align: center;
+}
+
+/*--------------------------------------------------------------
+# MAIN Section
+--------------------------------------------------------------*/
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 100px;
+}
+
+.info-section {
+    max-width: 900px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding: 25px; /* Un poco más de padding */
+    background-color: white;
+    border-radius: 12px; /* Más redondeado */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra más suave */
+}
+
+.izquierda {
+    flex-direction: row;
+}
+
+.derecha {
+    flex-direction: row-reverse;
+}
+
+.info-section img {
+    width: 300px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra un poco más definida */
+}
+
+.info-section h2 {
+    width: 100%;
+    font-size: 1.8em;
+    color: #003366;
+}
+
+.info-section p {
+    flex: 1;
+    font-size: 1.1em;
+    line-height: 1.6; /* Mejor interlineado */
+    color: #333; /* Color de párrafo más estándar */
+}
+
+/*--------------------------------------------------------------
+# Footer Section
+--------------------------------------------------------------*/
+footer {
+    background-color: #0d0d0d;
+    color: white;
+    padding: 40px 20px 20px; /* Más padding superior */
+    font-size: 0.95em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: auto;
+    gap: 30px; /* Más espacio */
+}
+
+.footer-logo h3 {
+    margin: 0 0 5px 0; /* Espacio debajo del título */
+    font-size: 1.6em; /* Un poco más grande */
+    color: #e0c08d;
+}
+
+.footer-logo p {
+    margin-top: 5px;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin: 8px 0; /* Más espacio entre links */
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #e0c08d;
+}
+
+.footer-social p {
+    margin-bottom: 10px; /* Más espacio */
+    font-weight: bold;
+}
+
+.footer-social .icons a {
+    margin-right: 12px; /* Más espacio entre iconos */
+    display: inline-block;
+}
+
+.footer-social img {
+    filter: brightness(0) invert(1);
+    transition: transform 0.2s;
+    width: 24px; /* Tamaño explícito para iconos */
+    height: 24px;
+}
+
+.footer-social img:hover {
+    transform: scale(1.15); /* Agrandar un poco más */
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    margin-top: 30px; /* Más espacio */
+    padding-top: 20px; /* Más espacio */
+    text-align: center;
+    color: #aaa;
+    font-size: 0.85em;
 }
