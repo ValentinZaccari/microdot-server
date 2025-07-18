@@ -1,4 +1,4 @@
-# Aplicacion del servidor
+
 import asyncio
 import machine
 from microdot import Microdot
@@ -22,7 +22,7 @@ np[3] = (255, 255, 255)
 
 setpoint = 20 
 
-# Inicialización del sensor DS18B20
+
 ds_pin = machine.Pin(19) 
 ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
 roms = ds_sensor.scan()
@@ -103,7 +103,7 @@ async def sensor_temperature(request):
             buzzer_status = False
         return {"temperature": temp}
     else:
-        # Si no hay lectura, apaga el buzzer y devuelve None
+       
         buzzer_pin.value(0)
         buzzer_status = False
         return {"temperature": None}
